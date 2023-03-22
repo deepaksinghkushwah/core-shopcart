@@ -8,16 +8,16 @@ class User
     }
     public function login($email, $password)
     {
-        $sql = "SELECT * FROM `users` WHERE `email` = '$email'";        
-        $result = mysqli_query($this->dbo, $sql);        
+        $sql = "SELECT * FROM `users` WHERE `email` = '$email'";
+        $result = mysqli_query($this->dbo, $sql);
         if (mysqli_num_rows($result) > 0) {
-            $user = mysqli_fetch_assoc($result);            
+            $user = mysqli_fetch_assoc($result);
             if ($user['password'] == md5($password)) {
                 unset($user['password']);
                 $_SESSION['user'] = $user;
                 $_SESSION['isLoggedIn'] = true;
                 $_SESSION['msg'] = "User logged in";
-                if($user['role_id'] == 1){
+                if ($user['role_id'] == 1) {
                     $_SESSION['isAdmin'] = true;
                 }
                 return true;
@@ -47,35 +47,39 @@ class User
         }
     }
 
-    public static function isAuthorizedUser(){        
-        if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true){
+    public static function isAuthorizedUser()
+    {
+        if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
             return true;
         } else {
-            header('location: '.SITE_WS_PATH.'/login.php');
+            header('location: ' . SITE_WS_PATH . '/login.php');
             exit;
         }
     }
 
-    public static function checkLogin(){
-        if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true){
+    public static function checkLogin()
+    {
+        if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
             return true;
         } else {
             return false;
         }
     }
 
-    public static function isAuthorizedAdminUser(){        
-        if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true){
+    public static function isAuthorizedAdminUser()
+    {
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true) {
             return true;
         } else {
             $_SESSION['err_msg'] = "You are not authorized to perform this action";
-            header('location: '.SITE_WS_PATH.'/login.php');
+            header('location: ' . SITE_WS_PATH . '/login.php');
             exit;
         }
     }
 
-    public static function checkAdminLogin(){
-        if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true){
+    public static function checkAdminLogin()
+    {
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true) {
             return true;
         } else {
             return false;

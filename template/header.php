@@ -11,7 +11,7 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=SITE_WS_PATH.'/catalog.php'?>">Catalog</a>
+            <a class="nav-link" href="<?=SITE_WS_PATH . 'catalog.php'?>">Catalog</a>
           </li>
           <!--<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,18 +26,23 @@
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>-->
-          <?php if (User::checkLogin()) { ?>
+          <?php if (User::checkLogin()) {?>
+            <?php if (User::checkAdminLogin()) {?>
             <li class="nav-item">
-              <a class="nav-link" href="<?= SITE_WS_PATH . '/logout.php' ?>">Logout</a>
+              <a class="nav-link" href="<?=SITE_WS_PATH.'admin/index.php'?>">Admin Panel</a>
             </li>
-          <?php } else { ?>
+            <?php }?>
             <li class="nav-item">
-              <a class="nav-link" href="<?= SITE_WS_PATH . '/login.php' ?>">Login</a>
+              <a class="nav-link" href="<?=SITE_WS_PATH . 'logout.php'?>">Logout</a>
+            </li>
+          <?php } else {?>
+            <li class="nav-item">
+              <a class="nav-link" href="<?=SITE_WS_PATH . 'login.php'?>">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?= SITE_WS_PATH . '/register.php' ?>">Register</a>
+              <a class="nav-link" href="<?=SITE_WS_PATH . 'register.php'?>">Register</a>
             </li>
-          <?php } ?>
+          <?php }?>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

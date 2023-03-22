@@ -16,7 +16,9 @@
 <body>
     <?php include './template/header.php' ?>
     <?php include './message.php' ?>
-    Dashboard
+    <div class="container">
+        Dashboard
+    </div>
     <?php include './template/footer.php' ?>
 </body>
 

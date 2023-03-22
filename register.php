@@ -6,7 +6,7 @@ if(isset($_POST['email'])){
     $password = $_POST['password'];
     $fullname = $_POST['fullname'];
     if($user->register($email, $password, $fullname)){
-        header('location: '.SITE_WS_PATH.'/login.php');
+        header('location: '.SITE_WS_PATH.'login.php');
         exit;
     }
 }

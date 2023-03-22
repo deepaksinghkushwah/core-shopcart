@@ -7,9 +7,11 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="#">Features</a>
-        <a class="nav-link" href="#">Pricing</a>
-        <a class="nav-link" href="<?=SITE_WS_PATH.'/logout.php'?>">Logout</a>
+        <a class="nav-link" href="<?=SITE_WS_PATH.'admin/category/category.php'?>">Categories</a>
+        <a class="nav-link" href="#">Products</a>
+        <a class="nav-link" href="#">Orders</a>
+        <a class="nav-link" href="#">Users</a>
+        <a class="nav-link" href="<?=SITE_WS_PATH.'logout.php'?>">Logout</a>
       </div>
     </div>
   </div>
