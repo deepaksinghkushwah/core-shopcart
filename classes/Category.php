@@ -35,9 +35,10 @@ class Category
      *
      * @return string
      */
-    public function uploadImage($imageFieldName): string
+    public function uploadImage($imageFieldName, $editCase = false): string
     {
-        if (isset($_FILES[$imageFieldName])) {
+        // check if image is uploading
+        if (isset($_FILES[$imageFieldName]) && $_FILES[$imageFieldName]['name']!='') {
             $ext = substr($_FILES[$imageFieldName]['name'], strrpos($_FILES[$imageFieldName]['name'], '.'));            
             $newFileName = md5(time()) . uniqid() . $ext;
             //exit($_FILES[$imageFieldName]['tmp_name']);
@@ -47,7 +48,14 @@ class Category
                 return 'noimg.png';
             }
         } else {
-            return 'noimg.png';
+            // image not uploaded
+            if($editCase == true){ // if edit category submitted and image is not uploaded
+                $cat = self::getCategory($_GET['id']);
+                return $cat['image'];
+            } else { // create case
+                return 'noimg.png';
+            }
+            
         }
 
     }
@@ -99,5 +107,15 @@ class Category
         $sql = "DELETE FROM `categories` WHERE id = $id";
         mysqli_query(DBO::getDBO(), $sql);
         return true;
+    }
+
+    public function updateCategory(int $id){
+        $sql = "UPDATE `categories` SET `title` = '$this->title', `image` = '$this->image', `description` = '$this->description' WHERE `id` = '$id'";
+        $result = mysqli_query($this->dbo, $sql);
+        if (mysqli_affected_rows($this->dbo) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

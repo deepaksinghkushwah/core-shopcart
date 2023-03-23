@@ -21,12 +21,25 @@ switch ($action) {
         $category->description = $_POST['description'];
         $category->image = $category->uploadImage('image');
         //exit($category->image);
-        if($category->create()){
+        if ($category->create()) {
             $_SESSION['msg'] = "Category Created";
             header('location: ' . SITE_WS_PATH . 'admin/category/category.php');
             exit;
         } else {
             $_SESSION['msg'] = "Error at creating category";
+        }
+        break;
+    case 'updateCategory':
+        $category = new Category;
+        $category->title = $_POST['title'];
+        $category->description = $_POST['description'];
+        $category->image = $category->uploadImage('image', true);
+        if($category->updateCategory($_GET['id'])){
+            $_SESSION['msg'] = "Category Updated";
+            header('location: ' . SITE_WS_PATH . 'admin/category/category.php');
+            exit;
+        } else {
+            $_SESSION['msg'] = "Error at updating category";
         }
         break;
 }
@@ -50,7 +63,7 @@ switch ($action) {
 <body>
     <?php include '../template/header.php'; ?>
     <div class="container">
-    <?php include '../template/message.php'; ?>
+        <?php include '../template/message.php'; ?>
         <div class="d-flex justify-content-between align-items-center">
             <h1>Categories</h1>
             <a href="<?= SITE_WS_PATH . 'admin/category/category.php?view=create' ?>"
@@ -61,6 +74,9 @@ switch ($action) {
         switch ($view) {
             case 'create':
                 include './create.php';
+                break;
+            case 'edit':
+                include './edit.php';
                 break;
             case 'list':
             default:
