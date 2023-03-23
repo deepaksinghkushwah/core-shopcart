@@ -17,7 +17,7 @@ class User
                 $_SESSION['user'] = $user;
                 $_SESSION['isLoggedIn'] = true;
                 $_SESSION['msg'] = "User logged in";
-                if ($user['role_id'] == 1) {
+                if ((int)$user['role_id'] === 1) {
                     $_SESSION['isAdmin'] = true;
                 }
                 return true;
