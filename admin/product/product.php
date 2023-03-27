@@ -10,8 +10,8 @@ $action = $_GET['action'] ?? 'list';
 switch ($action) {
     case 'deleteProduct':
         if (Product::deleteProduct($_GET['id'])) {
-            $_SESSION['msg'] = "Category Deleted";
-            header('location: ' . SITE_WS_PATH . 'admin/category/category.php');
+            $_SESSION['msg'] = "Product Deleted";
+            header('location: ' . SITE_WS_PATH . 'admin/product/product.php');
             exit;
         }
         break;

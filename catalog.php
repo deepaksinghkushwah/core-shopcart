@@ -24,7 +24,21 @@
             foreach ($categories as $cat) {
             ?>
                 <div class="col mb-4">
-                    <img src="<?= PRODUCT_IMAGES_WS_PATH . $cat['image'] ?>" class="img-thumbnail img-fluid" alt="" />
+                    <div class="card">
+                        <img src="<?= PRODUCT_IMAGES_WS_PATH . $cat['image'] ?>" class="card-image" alt="" />
+                        <div class="card-body">
+                            <div class="card-heading">
+                                <strong><?= $cat['title'] ?></strong>
+                            </div>
+                            <div class="card-text">
+                                <?= $cat['description'] ?>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-end">
+                            <a class="btn btn-success" href="<?= SITE_WS_PATH . 'products.php?cat_id=' . $cat['id'] ?>">Products</a>
+                        </div>
+                    </div>
+
                 </div>
             <?php
             }
