@@ -1,11 +1,11 @@
 <?php
-class Category
+class Product
 {
     public $dbo;
     public $title;
     public $image;
     public $description;
-    public $parentID;
+    public $catID;
     public $status;
 
     public function __construct()
@@ -20,7 +20,7 @@ class Category
      */
     public function create(): bool
     {
-        $sql = "INSERT INTO `categories` SET `title` = '$this->title', `image` = '$this->image', `description` = '$this->description'";
+        $sql = "INSERT INTO `products` SET `title` = '$this->title', `image` = '$this->image', `description` = '$this->description', `cat_id` = '$this->catID'";
         $result = mysqli_query($this->dbo, $sql);
         if (mysqli_affected_rows($this->dbo) > 0) {
             return true;
@@ -50,8 +50,8 @@ class Category
         } else {
             // image not uploaded
             if($editCase == true){ // if edit category submitted and image is not uploaded
-                $cat = self::getCategory($_GET['id']);
-                return $cat['image'];
+                $product = self::getProduct($_GET['id']);
+                return $product['image'];
             } else { // create case
                 return 'noimg.png';
             }
@@ -65,18 +65,24 @@ class Category
      *
      * @return array
      */
-    public static function getAllCategories(): array
+    public static function getAllProducts(int $catID = 0): array
     {
-        $categories = [];
-        $sql = "SELECT * FROM `categories` order by id DESC";
+        $products = [];
+        $sql = "SELECT * FROM `products`";
+        if($catID != 0){
+            $sql .= " WHERE cat_id = $catID ";
+        }
+        $sql .= "  order by id DESC ";
         $results = mysqli_query(DBO::getDBO(), $sql);
         if (mysqli_num_rows($results) > 0) {
             while ($row = mysqli_fetch_assoc($results)) {
-                $categories[] = $row;
+                $products[] = $row;
             }
         }
-        return $categories;
+        return $products;
     }
+
+    
 
     /**
      * Return single category
@@ -84,10 +90,10 @@ class Category
      * @param integer $id
      * @return array|bool
      */
-    public static function getCategory(int $id): array|bool
+    public static function getProduct(int $id): array|bool
     {
         $category = [];
-        $sql = "SELECT * FROM `categories` WHERE id = $id";
+        $sql = "SELECT * FROM `products` WHERE id = $id";
         $result = mysqli_query(DBO::getDBO(), $sql);
         if (mysqli_num_rows($result) > 0) {
             return mysqli_fetch_assoc($result);
@@ -102,15 +108,15 @@ class Category
      * @param integer $id
      * @return boolean
      */
-    public static function deleteCategory(int $id): bool
+    public static function deleteProduct(int $id): bool
     {
-        $sql = "DELETE FROM `categories` WHERE id = $id";
+        $sql = "DELETE FROM `products` WHERE id = $id";
         mysqli_query(DBO::getDBO(), $sql);
         return true;
     }
 
-    public function updateCategory(int $id){
-        $sql = "UPDATE `categories` SET `title` = '$this->title', `image` = '$this->image', `description` = '$this->description' WHERE `id` = '$id'";
+    public function updateProduct(int $id){
+        $sql = "UPDATE `products` SET `title` = '$this->title', `image` = '$this->image', `description` = '$this->description', cat_id = '$this->catID' WHERE `id` = '$id'";
         $result = mysqli_query($this->dbo, $sql);
         if (mysqli_affected_rows($this->dbo) > 0) {
             return true;

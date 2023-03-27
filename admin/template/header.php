@@ -8,7 +8,7 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="#">Home</a>
         <a class="nav-link" href="<?=SITE_WS_PATH.'admin/category/category.php'?>">Categories</a>
-        <a class="nav-link" href="#">Products</a>
+        <a class="nav-link" href="<?=SITE_WS_PATH.'admin/product/product.php'?>">Products</a>
         <a class="nav-link" href="#">Orders</a>
         <a class="nav-link" href="#">Users</a>
         <a class="nav-link" href="<?=SITE_WS_PATH.'logout.php'?>">Logout</a>
