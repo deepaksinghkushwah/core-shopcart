@@ -21,13 +21,26 @@ switch ($action) {
         $category->description = $_POST['description'];
         $category->image = $category->uploadImage('image');
         //exit($category->image);
-        if ($category->create()) {
-            $_SESSION['msg'] = "Category Created";
-            header('location: ' . SITE_WS_PATH . 'admin/category/category.php');
-            exit;
+        $errors = $category->validate();
+        if(count($errors) <= 0){
+            if ($category->create()) {
+                $_SESSION['msg'] = "Category Created";
+                header('location: ' . SITE_WS_PATH . 'admin/category/category.php');
+                exit;
+            } else {
+                $_SESSION['msg'] = "Error at creating category";
+            }
         } else {
-            $_SESSION['msg'] = "Error at creating category";
+            $str = '';
+            foreach($errors as $error){
+                $str .= $error['msg']."<br>";
+            }
+            $_SESSION['err_msg'] = $str;
+            header('location: ' . SITE_WS_PATH . 'admin/category/category.php?view=create');
+            exit;
+
         }
+        
         break;
     case 'updateCategory':
         $category = new Category;

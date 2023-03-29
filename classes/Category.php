@@ -13,6 +13,19 @@ class Category
         $this->dbo = DBO::getDBO();
     }
 
+    public function validate(){
+        $errMsg = [];
+        if(empty($this->title)){
+            $errMsg ['title'] = ['msg' => 'Title can not be empty'];
+        }
+
+        if(empty($this->description)){
+            $errMsg ['description'] = ['msg' => 'Description can not be empty'];
+        }
+        return $errMsg;
+
+    }
+
     /**
      * Create new category
      *
