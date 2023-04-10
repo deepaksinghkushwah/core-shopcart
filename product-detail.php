@@ -1,4 +1,14 @@
-<?php include './config.php'; ?>
+<?php 
+include './config.php'; 
+if(isset($_REQUEST['btnAddToCart'])){
+    $qty = $_REQUEST['qty'];
+    $productID = $_REQUEST['product_id'];
+    $msg =  OrderProcess::addToCart($productID, $qty);
+    $_SESSION['msg'] = $msg;
+    header('location: '.SITE_WS_PATH.'product-detail.php?id='.$productID);
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,9 +44,10 @@
                     </div>
                     <div class="card-footer">
                         <form method="post" action="">
+                            <input type="hidden" name="product_id" value="<?=$item['id']?>">
                             <div class="row">
-                                <div class="col-6"><input type="number" class="form-control" min="1" value="1" step="1" /></div>
-                                <div class="col-6"><button type="submit" class="btn btn-primary">Add To Cart</button></div>
+                                <div class="col-6"><input type="number" name="qty" class="form-control" min="1" value="1" step="1" /></div>
+                                <div class="col-6"><button type="submit" class="btn btn-primary" name="btnAddToCart">Add To Cart</button></div>
                             </div>
 
 

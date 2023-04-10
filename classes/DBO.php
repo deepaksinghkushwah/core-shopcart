@@ -9,4 +9,7 @@ abstract class DBO
         }
         return self::$conn;
     }
+    public static function showAsCurrency(float $amount){
+        return '&#8377;'.$amount;
+    }
 }

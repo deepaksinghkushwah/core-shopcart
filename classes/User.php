@@ -20,6 +20,8 @@ class User
                 if ((int)$user['role_id'] === 1) {
                     $_SESSION['isAdmin'] = true;
                 }
+                $sql = "UPDATE `cart` SET user_id = '".$user['id']."' WHERE `session_id` = '".session_id()."'";
+                mysqli_query($this->dbo, $sql);
                 return true;
             } else {
                 $_SESSION['err_msg'] = "Password not matched";

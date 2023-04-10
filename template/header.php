@@ -47,6 +47,7 @@
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
+          <a class="btn btn-primary ms-3" href="<?=SITE_WS_PATH.'cart.php'?>">Cart</a>
         </form>
       </div>
     </div>

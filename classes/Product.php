@@ -123,5 +123,5 @@ class Product
         } else {
             return false;
         }
-    }
+    }   
 }
