@@ -7,6 +7,7 @@ class Product
     public $description;
     public $catID;
     public $status;
+    public $price;
 
     public function __construct()
     {
@@ -20,7 +21,7 @@ class Product
      */
     public function create(): bool
     {
-        $sql = "INSERT INTO `products` SET `title` = '$this->title', `image` = '$this->image', `description` = '$this->description', `cat_id` = '$this->catID'";
+        $sql = "INSERT INTO `products` SET `title` = '$this->title', `image` = '$this->image', `description` = '$this->description', `cat_id` = '$this->catID', `price` = '".$this->price."'";
         $result = mysqli_query($this->dbo, $sql);
         if (mysqli_affected_rows($this->dbo) > 0) {
             return true;
@@ -124,4 +125,19 @@ class Product
             return false;
         }
     }   
+
+    public static function generateProducts(){
+        
+        for($i = 0; $i < 10; $i++){
+            $faker = Faker\Factory::create();
+            $obj = new Product;
+            $obj->catID = 14;
+            $obj->title = $faker->text(30);
+            $obj->description = $faker->text(300);
+            $obj->price = $faker->randomFloat();
+            $obj->image = 'noimg.png';
+            $obj->status = 1;
+            $obj->create();
+        }
+    }
 }
