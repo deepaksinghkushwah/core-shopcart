@@ -68,7 +68,9 @@ switch ($action) {
                             <td class="text-end">
                                 <form method="post" action="<?= SITE_WS_PATH . 'cart.php?action=updateCart&id=' . $item['id'] ?>">
                                     <input type="number" name="qty" id="" value="<?= $item['qty'] ?>">
-                                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                                    <button type="submit" class="btn btn-sm">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
                                 </form>
                             </td>
                             <td class="text-end"><?= DBO::showAsCurrency($total) ?></td>
