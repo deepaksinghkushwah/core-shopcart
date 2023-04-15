@@ -1,4 +1,17 @@
-<?php include './config.php'; User::isAuthorizedUser(); ?>
+<?php 
+include './config.php'; 
+User::isAuthorizedUser(); 
+$action=$_GET['action'] ?? null;
+switch($action){
+    case 'removeFromCart':
+        $id = $_GET['id'];
+        OrderProcess::removeFromCart($id);
+        $_SESSION['msg'] = "Item removed from cart";
+        header('location: '.SITE_WS_PATH.'cart.php');
+        exit;
+        break;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +39,7 @@
                     <th>Price</th>
                     <th>Qty</th>
                     <th>Total</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +61,9 @@
                             <td class="text-end"><?= DBO::showAsCurrency($item['price']) ?></td>
                             <td class="text-end"><?= $item['qty'] ?></td>
                             <td class="text-end"><?= DBO::showAsCurrency($total) ?></td>
+                            <td>
+                                <a href="<?=SITE_WS_PATH.'cart.php?action=removeFromCart&id='.$item['id']?>">x</a>
+                            </td>
                         </tr>
                 <?php
                     }

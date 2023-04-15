@@ -29,5 +29,12 @@ class OrderProcess {
         return $msg;
     }
 
+    public static function removeFromCart(int $id) : bool {
+        $dbo = DBO::getDBO();
+        $sql = "DELETE FROM `cart` WHERE id = '$id'";
+        mysqli_query($dbo, $sql);
+        return true;
+    }
+
     
 }

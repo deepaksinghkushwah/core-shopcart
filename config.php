@@ -5,4 +5,4 @@ define('SITE_WS_PATH','http://core-shopcart.local/');
 
 define('PRODUCT_IMAGES_WS_PATH',SITE_WS_PATH.'assets/images/product-images/');
 define('PRODUCT_IMAGES_FS_PATH',SITE_FS_PATH.'assets/images/product-images/');
-include './vendor/autoload.php';
+include SITE_FS_PATH.'/vendor/autoload.php';
