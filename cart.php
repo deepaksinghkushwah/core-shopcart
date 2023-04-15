@@ -1,13 +1,21 @@
-<?php 
-include './config.php'; 
-User::isAuthorizedUser(); 
-$action=$_GET['action'] ?? null;
-switch($action){
+<?php
+include './config.php';
+User::isAuthorizedUser();
+$action = $_REQUEST['action'] ?? null;
+switch ($action) {
     case 'removeFromCart':
-        $id = $_GET['id'];
+        $id = $_REQUEST['id'];
         OrderProcess::removeFromCart($id);
         $_SESSION['msg'] = "Item removed from cart";
-        header('location: '.SITE_WS_PATH.'cart.php');
+        header('location: ' . SITE_WS_PATH . 'cart.php');
+        exit;
+        break;
+    case 'updateCart':        
+        $id = $_REQUEST['id'];
+        $qty = $_REQUEST['qty'];
+        OrderProcess::updateCart($id, $qty);
+        $_SESSION['msg'] = "Item updated in cart";
+        header('location: ' . SITE_WS_PATH . 'cart.php');
         exit;
         break;
 }
@@ -44,9 +52,7 @@ switch($action){
             </thead>
             <tbody>
                 <?php
-                $dbo =  DBO::getDBO();
-                $sql = "SELECT * FROM `cart` WHERE user_id = '" . $_SESSION['user']['id'] . "'";
-                $result = mysqli_query($dbo, $sql);
+                $result = OrderProcess::getCart();
                 if (mysqli_num_rows($result) > 0) {
                     $total = 0.00;
                     $gTotal = 0.00;
@@ -59,10 +65,18 @@ switch($action){
                         <tr>
                             <td><?= $product['title'] ?></td>
                             <td class="text-end"><?= DBO::showAsCurrency($item['price']) ?></td>
-                            <td class="text-end"><?= $item['qty'] ?></td>
+                            <td class="text-end">
+                                <form method="post" action="<?= SITE_WS_PATH . 'cart.php?action=updateCart&id=' . $item['id'] ?>">
+                                    <input type="number" name="qty" id="" value="<?= $item['qty'] ?>">
+                                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                                </form>
+                            </td>
                             <td class="text-end"><?= DBO::showAsCurrency($total) ?></td>
                             <td>
-                                <a href="<?=SITE_WS_PATH.'cart.php?action=removeFromCart&id='.$item['id']?>">x</a>
+                                <a title="Remove item from cart" href="<?= SITE_WS_PATH . 'cart.php?action=removeFromCart&id=' . $item['id'] ?>">
+                                <i class="bi bi-trash"></i>
+
+                            </a>
                             </td>
                         </tr>
                 <?php

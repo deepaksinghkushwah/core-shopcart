@@ -36,5 +36,19 @@ class OrderProcess {
         return true;
     }
 
+    public static function updateCart(int $id, int $qty) : bool {
+        $dbo = DBO::getDBO();
+        $sql = "UPDATE `cart` SET `qty` = '$qty' WHERE `id` = '$id'";
+        mysqli_query($dbo, $sql);        
+        return true;
+    }
+
+    public static function getCart(){
+        $dbo =  DBO::getDBO();
+        $sql = "SELECT * FROM `cart` WHERE user_id = '" . $_SESSION['user']['id'] . "'";
+        $result = mysqli_query($dbo, $sql);
+        return $result;
+    }
+
     
 }
