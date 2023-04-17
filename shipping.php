@@ -1,4 +1,14 @@
-<?php include './config.php'; ?>
+<?php include './config.php';
+$action = $_GET['action'] ?? null;
+switch ($action) {
+    case 'deleteAddress':
+        Address::deleteAddress($_REQUEST['id']);
+        $_SESSION['msg'] = "Address removed";
+        header('location: ' . SITE_WS_PATH . 'shipping.php');
+        exit;
+        break;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +63,7 @@
                                     <?= $item['country'] ?>
                                 </div>
                                 <div class="card-footer">
-                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                    <a href="<?= SITE_WS_PATH . 'shipping.php?action=deleteAddress&id=' . $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                 </div>
                             </div>
                         </div>

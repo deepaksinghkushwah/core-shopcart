@@ -35,7 +35,7 @@ class Address
     public static function getAllAddress(int $userID){
         
             $returnArr = [];
-            $sql = "SELECT * FROM `addresses` WHERE `user_id` = '$userID' order by id DESC";
+            $sql = "SELECT * FROM `addresses` WHERE `user_id` = '$userID' AND `status` = 1 order by id DESC";
             $results = mysqli_query(DBO::getDBO(), $sql);
             if (mysqli_num_rows($results) > 0) {
                 while ($row = mysqli_fetch_assoc($results)) {
@@ -44,5 +44,12 @@ class Address
             }
             return $returnArr;
         
+    }
+
+    public static function deleteAddress(int $id): bool
+    {
+        $sql = "UPDATE `addresses` SET `status` = 0 WHERE id = $id and `user_id` = '".$_SESSION['user']['id']."'";
+        mysqli_query(DBO::getDBO(), $sql);
+        return true;
     }
 }
