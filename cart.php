@@ -10,7 +10,7 @@ switch ($action) {
         header('location: ' . SITE_WS_PATH . 'cart.php');
         exit;
         break;
-    case 'updateCart':        
+    case 'updateCart':
         $id = $_REQUEST['id'];
         $qty = $_REQUEST['qty'];
         OrderProcess::updateCart($id, $qty);
@@ -76,9 +76,9 @@ switch ($action) {
                             <td class="text-end"><?= DBO::showAsCurrency($total) ?></td>
                             <td>
                                 <a title="Remove item from cart" href="<?= SITE_WS_PATH . 'cart.php?action=removeFromCart&id=' . $item['id'] ?>">
-                                <i class="bi bi-trash"></i>
+                                    <i class="bi bi-trash"></i>
 
-                            </a>
+                                </a>
                             </td>
                         </tr>
                 <?php
@@ -93,6 +93,12 @@ switch ($action) {
                         <span>Grand Total</span>
                     </th>
                     <th class="text-end"><?= DBO::showAsCurrency($gTotal) ?></th>
+                </tr>
+                <tr>
+                    <th colspan="5" class="text-end">
+                        <a href="<?=SITE_WS_PATH.'shipping.php'?>" class="btn btn-success btn-sm">Proceed To Checkout</a>
+                    </th>
+
                 </tr>
             </tfoot>
         </table>
