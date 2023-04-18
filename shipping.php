@@ -7,6 +7,12 @@ switch ($action) {
         header('location: ' . SITE_WS_PATH . 'shipping.php');
         exit;
         break;
+    case 'saveShipBillAddress':
+        $addressID = $_REQUEST['address'];
+        OrderProcess::createOrder($addressID);
+        header('location: ' . SITE_WS_PATH . 'payment.php');
+        exit;
+        break;
 }
 ?>
 <!DOCTYPE html>
