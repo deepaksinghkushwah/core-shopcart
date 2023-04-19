@@ -17,6 +17,34 @@
     <?php include './template/header.php' ?>
     <?php include './message.php' ?>
     Order payment details
+    <?php
+    $key = 'fcZxr6';
+    $salt = 'xBJpv25HH6q8saJOimBllTHPpVj5iHno';
+    $mid = 'wIEUUgWk0j';
+    $txnId = '1';
+    $amount = 10;
+    $productInfo = 'iPhone';
+    $firstname = "deepak";
+    $lastname = "kushwah";
+    $email = 'test@gmail.com';
+    $phone = '8233142631';    
+    $text = $key.'|'.$txnId.'|'.$amount.'|'.$productInfo.'|'.$firstname.'|'.$email.'|||||||||||'.$salt;
+    $hash = hash("sha512",$text);
+    ?>
+    <form action='https://test.payu.in/_payment' method='post' enctype="multipart/form-data">
+        <input type="text" name="key" value="<?=$key?>" />
+        <input type="text" name="txnid" value="<?=$txnId?>" />
+        <input type="text" name="productinfo" value="<?=$productInfo?>" />
+        <input type="text" name="amount" value="<?=$amount?>" />
+        <input type="text" name="email" value="<?=$email?>" />
+        <input type="text" name="firstname" value="<?=$firstname?>" />
+        <input type="text" name="lastname" value="<?=$lastname?>" />
+        <input type="text" name="surl" value="<?=SITE_WS_PATH.'payment-success.php?order_id='.$txnId?>" />
+        <input type="text" name="furl" value="<?=SITE_WS_PATH.'payment-fail.php?order_id='.$txnId?>" />
+        <input type="text" name="phone" value="<?=$phone?>" />
+        <input type="text" name="hash" value="<?=$hash?>" />
+        <input type="submit" value="submit">
+    </form>
     <?php include './template/footer.php' ?>
 </body>
 
