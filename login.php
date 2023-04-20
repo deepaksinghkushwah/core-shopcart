@@ -12,11 +12,7 @@ if(isset($_POST['email'])){
     $password = $_POST['password'];
     $user = new User;
     if($user->login($email, $password)){        
-        if($_SESSION['isAdmin']){
-            header('location: '.SITE_WS_PATH.'/admin/index.php');    
-        } else {
-            header('location: '.SITE_WS_PATH.'/dashboard.php');
-        }        
+        header('location: '.SITE_WS_PATH.'/dashboard.php');        
         exit;
     }
 }

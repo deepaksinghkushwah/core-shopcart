@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <a class="nav-link active" aria-current="page" href="<?=SITE_WS_PATH?>">Home</a>
         <a class="nav-link" href="<?=SITE_WS_PATH.'admin/category/category.php'?>">Categories</a>
         <a class="nav-link" href="<?=SITE_WS_PATH.'admin/product/product.php'?>">Products</a>
         <a class="nav-link" href="#">Orders</a>
