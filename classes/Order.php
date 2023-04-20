@@ -2,6 +2,7 @@
 class Order
 {
     public $dbo;
+    public $id;
     public $userID;
     public $addressID;
     public $amount;
@@ -30,6 +31,19 @@ class Order
             return false;
         }
 
+    }
+
+    /**
+     * Create new order
+     *
+     * @return boolean
+     */
+    public static function confirmPaymentStatus(int $id): int|bool
+    {
+        $dbo = DBO::getDBO();        
+        mysqli_query($dbo, "UPDATE `orders` SET `payment_status` = 'paid', `order_status` = 'order placed' WHERE `id` = '$id'");
+        Cart::emptyCart($_SESSION['user']['id']); // empty cart
+        return true;
     }
 
     

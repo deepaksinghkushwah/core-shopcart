@@ -18,11 +18,12 @@
     <?php include './message.php' ?>
     Order payment details
     <?php
+    $orderID = $_REQUEST['order_id'];
     $key = 'fcZxr6';
     $salt = 'xBJpv25HH6q8saJOimBllTHPpVj5iHno';
     $mid = 'wIEUUgWk0j';
-    $txnId = '1';
-    $amount = 10;
+    $txnId = $orderID;
+    $amount = Cart::getCartTotal($_SESSION['user']['id']);
     $productInfo = 'iPhone';
     $firstname = "deepak";
     $lastname = "kushwah";
@@ -39,8 +40,8 @@
         <input type="text" name="email" value="<?=$email?>" />
         <input type="text" name="firstname" value="<?=$firstname?>" />
         <input type="text" name="lastname" value="<?=$lastname?>" />
-        <input type="text" name="surl" value="<?=SITE_WS_PATH.'payment-success.php?order_id='.$txnId?>" />
-        <input type="text" name="furl" value="<?=SITE_WS_PATH.'payment-fail.php?order_id='.$txnId?>" />
+        <input type="text" name="surl" value="<?=SITE_WS_PATH.'payment-response.php?order_id='.$txnId?>" />
+        <input type="text" name="furl" value="<?=SITE_WS_PATH.'payment-response.php?order_id='.$txnId?>" />
         <input type="text" name="phone" value="<?=$phone?>" />
         <input type="text" name="hash" value="<?=$hash?>" />
         <input type="submit" value="submit">

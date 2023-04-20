@@ -9,8 +9,8 @@ switch ($action) {
         break;
     case 'saveShipBillAddress':
         $addressID = $_REQUEST['address'];
-        OrderProcess::createOrder($addressID);
-        header('location: ' . SITE_WS_PATH . 'payment.php');
+        $orderID = OrderProcess::createOrder($addressID);
+        header('location: ' . SITE_WS_PATH . 'payment.php?order_id='.$orderID);
         exit;
         break;
 }

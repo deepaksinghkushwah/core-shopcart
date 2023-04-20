@@ -59,13 +59,18 @@ class OrderProcess
     {
         $dbo = DBO::getDBO();
         $orderID = 0;
+        // order id exists or not
         $result = mysqli_query($dbo, "SELECT * FROM `orders` WHERE `user_id` = '" . $_SESSION['user']['id'] . "' AND order_status = 'in progress' ORDER BY `id` DESC");
         if (mysqli_num_rows($result) > 0) {
+            // if order exists, update order amt so if user added new products, it will update total order amt
             $row = mysqli_fetch_assoc($result);
             $orderID = $row['id'];
+            $order = Order::getOrder($orderID);
+            mysqli_query($dbo, "UPDATE `order` SET `amount` = '".Cart::getCartTotal($_SESSION['user']['id'])."' WHERE `user_id` = '".$_SESSION['user']['id']."'");
         } else {            
+            // else crate new order id with all details
             $order = new Order;
-            $order->amount = 0.00;
+            $order->amount = Cart::getCartTotal($_SESSION['user']['id']);
             $order->userID =  $_SESSION['user']['id'];
             $order->createdAt = date('Y-m-d');
             $order->paymentStatus = 'unpaid';
@@ -74,6 +79,7 @@ class OrderProcess
             $orderID = $order->create();            
         }
 
+        // prepare migrate data from cart to order_detail table
         $cartProductsResult = mysqli_query($dbo, "SELECT * FROM `cart` WHERE user_id = '" . $_SESSION['user']['id'] . "'");
 
         if (mysqli_num_rows($cartProductsResult) > 0) {
@@ -82,7 +88,9 @@ class OrderProcess
                 $productExists = mysqli_query($dbo, "SELECT * FROM `order_details` WHERE `order_id` = '$orderID' AND `product_id` = '" . $cartProduct['product_id'] . "'");
                 // if exists, avoid it
                 if (mysqli_num_rows($productExists) > 0) {
-                    // do nothing
+                    // update order details table product qty as per cart table
+                    $sql = "UPDATE order_details SET qty = '".$cartProduct['qty']."' WHERE product_id = '".$cartProduct['product_id']."' AND `order_id` = '$orderID'";
+                    mysqli_query($dbo, $sql);
                 } else {
                     // else insert it in order details table
                     $product = Product::getProduct($cartProduct['product_id']);
@@ -96,6 +104,7 @@ class OrderProcess
                 }
             }
         }
-        return true;
+        return $orderID;
     }
+    
 }

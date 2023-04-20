@@ -16,8 +16,10 @@
 <body>
     <?php include './template/header.php' ?>
     <?php include './message.php' ?>
-    Payment Successful
-    <?php include './template/footer.php' ?>
+    <div class="container">
+        <h1>Your order <?=$_REQUEST['order_id']?> has been processed. Please contact support if you have any queries.</h1>
+    </div>
+        <?php include './template/footer.php' ?>
 </body>
 
 </html>
