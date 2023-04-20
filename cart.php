@@ -87,6 +87,7 @@ switch ($action) {
                 ?>
 
             </tbody>
+            <?php  if (mysqli_num_rows($result) > 0) { ?>
             <tfoot>
                 <tr>
                     <th colspan="3" class="text-end">
@@ -101,6 +102,11 @@ switch ($action) {
 
                 </tr>
             </tfoot>
+            <?php } else { ?>
+                <tr>
+                    <td colspan="5">No items added to cart</td>
+                </tr>
+                <?php } ?>
         </table>
     </div>
     <?php include './template/footer.php' ?>
