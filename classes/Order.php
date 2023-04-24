@@ -53,10 +53,20 @@ class Order
      *
      * @return array
      */
-    public static function getAllOrders(): array
+    public static function getAllOrders(int $userID = 0, string $paymentStatus = 'all'): array
     {
         $items = [];
-        $sql = "SELECT * FROM `orders` order by id DESC";
+        $sql = "SELECT * FROM `orders` WHERE id > 0 ";
+        if($paymentStatus != 'all'){
+            $sql .= " AND  payment_status = '$paymentStatus' ";
+        }
+        if($userID != 0){
+            $sql .= " AND `user_id` = '$userID' ";
+        }
+
+        $sql.= " order by id DESC ";
+
+        
         $results = mysqli_query(DBO::getDBO(), $sql);
         if (mysqli_num_rows($results) > 0) {
             while ($row = mysqli_fetch_assoc($results)) {

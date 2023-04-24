@@ -33,6 +33,9 @@
             </li>
             <?php }?>
             <li class="nav-item">
+              <a class="nav-link" href="<?=SITE_WS_PATH . 'order-history.php'?>">Order History</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="<?=SITE_WS_PATH . 'logout.php'?>">Logout</a>
             </li>
           <?php } else {?>
