@@ -14,7 +14,7 @@ class Order
     {
         $this->dbo = DBO::getDBO();
     }
-    
+
 
     /**
      * Create new order
@@ -30,7 +30,6 @@ class Order
         } else {
             return false;
         }
-
     }
 
     /**
@@ -40,13 +39,13 @@ class Order
      */
     public static function confirmPaymentStatus(int $id): int|bool
     {
-        $dbo = DBO::getDBO();        
+        $dbo = DBO::getDBO();
         mysqli_query($dbo, "UPDATE `orders` SET `payment_status` = 'paid', `order_status` = 'order placed' WHERE `id` = '$id'");
         Cart::emptyCart($_SESSION['user']['id']); // empty cart
         return true;
     }
 
-    
+
 
     /**
      * Return orders array
@@ -57,16 +56,16 @@ class Order
     {
         $items = [];
         $sql = "SELECT * FROM `orders` WHERE id > 0 ";
-        if($paymentStatus != 'all'){
+        if ($paymentStatus != 'all') {
             $sql .= " AND  payment_status = '$paymentStatus' ";
         }
-        if($userID != 0){
+        if ($userID != 0) {
             $sql .= " AND `user_id` = '$userID' ";
         }
 
-        $sql.= " order by id DESC ";
+        $sql .= " order by id DESC ";
 
-        
+
         $results = mysqli_query(DBO::getDBO(), $sql);
         if (mysqli_num_rows($results) > 0) {
             while ($row = mysqli_fetch_assoc($results)) {
@@ -83,7 +82,7 @@ class Order
      * @return array|bool
      */
     public static function getOrder(int $id): array|bool
-    {        
+    {
         $sql = "SELECT * FROM `orders` WHERE id = $id";
         $result = mysqli_query(DBO::getDBO(), $sql);
         if (mysqli_num_rows($result) > 0) {

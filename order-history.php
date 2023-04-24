@@ -32,12 +32,12 @@ User::isAuthorizedUser();
                     <div class="accordion-item">
                         <!-- according title -->
                         <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne<?= $order['id'] ?>" aria-expanded="<?= $i == 0 ? 'true' : ''; ?>" aria-controls="collapseOne<?= $order['id'] ?>">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne<?= $order['id'] ?>" aria-expanded="<?= $i == 0 ? 'true' : 'false'; ?>" aria-controls="collapseOne<?= $order['id'] ?>">
                                 Order ID #<?= $order['id'] ?>
                             </button>
                         </h2>
                         <!-- accordian content -->
-                        <div id="collapseOne<?= $order['id'] ?>" class="accordion-collapse collapse <?= $i == 0 ? 'show' : ''; ?>" data-bs-parent="#accordionExample">
+                        <div id="collapseOne<?= $order['id'] ?>" class="accordion-collapse collapse <?= $i == 0 ? 'show' : 'hide'; ?>" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <?php
                                 $orderDetails = OrderDetail::getOrderDetails($order['id']);
