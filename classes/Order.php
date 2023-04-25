@@ -91,4 +91,20 @@ class Order
             return false;
         }
     }
+
+    public static function updateOrderStatus(int $orderID, string $status)
+    {
+        $dbo = DBO::getDBO();
+        $order = self::getOrder($orderID);
+        $user = User::getUserByID($order['user_id']);
+        if ($status != '') {
+            $sql = "UPDATE `orders` SET order_status = '$status' WHERE id = '$orderID'";
+            mysqli_query($dbo, $sql);
+            $to = $user['email'];
+            $subject = "Order status upadted: #" . $order['id'];
+            $message = "Your order status has been updated to " . ucfirst($status) . '. Please contact administrator if you have any issue regarding this order';
+            Mailer::sendEmail($to, $subject, $message);
+        }
+        return true;
+    }
 }
