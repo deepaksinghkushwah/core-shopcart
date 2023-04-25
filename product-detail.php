@@ -1,11 +1,11 @@
-<?php 
-include './config.php'; 
-if(isset($_REQUEST['btnAddToCart'])){
+<?php
+include './config.php';
+if (isset($_REQUEST['btnAddToCart'])) {
     $qty = $_REQUEST['qty'];
     $productID = $_REQUEST['product_id'];
     $msg =  OrderProcess::addToCart($productID, $qty);
     $_SESSION['msg'] = $msg;
-    header('location: '.SITE_WS_PATH.'product-detail.php?id='.$productID);
+    header('location: ' . SITE_WS_PATH . 'product-detail.php?id=' . $productID);
     exit;
 }
 ?>
@@ -44,7 +44,7 @@ if(isset($_REQUEST['btnAddToCart'])){
                     </div>
                     <div class="card-footer">
                         <form method="post" action="">
-                            <input type="hidden" name="product_id" value="<?=$item['id']?>">
+                            <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
                             <div class="row">
                                 <div class="col-6"><input type="number" name="qty" class="form-control" min="1" value="1" step="1" /></div>
                                 <div class="col-6"><button type="submit" class="btn btn-primary" name="btnAddToCart">Add To Cart</button></div>
@@ -52,6 +52,31 @@ if(isset($_REQUEST['btnAddToCart'])){
 
 
                         </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <?php $url =  'http://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];?>
+                        <!-- Facebook -->
+                        <a href="http://www.facebook.com/sharer.php?u=<?=$url?>" target="_blank"><i class="bi bi-facebook"></i></a>
+
+                        <!-- Twitter -->
+                        <a href="http://twitter.com/share?url=<?=$url?>&text=Simple Share Buttons&hashtags=simplesharebuttons" target="_blank"><i class="bi bi-twitter"></i></a>
+
+                        <!-- Google+ -->
+                        <a href="https://plus.google.com/share?url=<?=$url?>" target="_blank"><i class="bi bi-google"></i></a>
+
+                        <!-- Digg -->
+                        <a href="http://www.digg.com/submit?url=<?=$url?>" target="_blank"><i class="bi bi-digg"></i></a>
+
+                        <!-- Reddit -->
+                        <a href="http://reddit.com/submit?url=<?=$url?>&title=Simple Share Buttons" target="_blank"><i class="bi bi-reddit"></i></a>
+
+                        <!-- LinkedIn -->
+                        <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?=$url?>" target="_blank"><i class="bi bi-linkedin"></i></a>
+
+                        
+
                     </div>
                 </div>
 
