@@ -140,4 +140,17 @@ class Product
             $obj->create();
         }
     }
+
+    public static function getRandomProducts(int $count = 10){
+        $retArr = [];
+        $dbo = DBO::getDBO();
+        $sql = "SELECT * FROM `products` WHERE `status` = 1 ORDER BY rand() LIMIT $count";
+        $results = mysqli_query($dbo, $sql);
+        if(mysqli_num_rows($results) > 0){
+            while($row = mysqli_fetch_assoc($results)){
+                $retArr[] = $row;
+            }
+        }
+        return $retArr;
+    }
 }
